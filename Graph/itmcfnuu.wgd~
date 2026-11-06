@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Collections.Generic;
+
+namespace Graph
+{
+    public partial class Form1 : Form
+    {
+
+        private Graph g = new Graph();
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            g.addNode();
+            g.addNode();
+            g.addNode();
+            g.addNode();
+
+            g.showNode();
+
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            g.showGraph(e);
+        }
+    }
+
+
+
+
+    public class Graph
+    {
+
+       private Queue<Node> node = new Queue<Node>();
+       
+
+
+        public void addNode()
+        {
+            Node n = new Node(node.Count);
+            node.Enqueue(n);
+        }
+
+        public void showNode()
+        {
+            foreach(Node i in node)i.showIndex();
+        }
+
+        public void showGraph(PaintEventArgs e)
+        {
+            // Graphics オブジェクトを取得
+            Graphics g = e.Graphics;
+
+            // 青色，太さ 2 のペンを定義
+            Pen pen = new Pen(Color.Blue, 2);
+
+            Random rand = new Random();
+
+            foreach (Node n in node)
+            {
+                n.setPosition(rand.Next(640), rand.Next(480));
+            }
+
+
+            foreach (Node n in node)
+            {
+                g.DrawEllipse(pen, n.getx(), n.gety(), 10, 10);
+            }
+
+
+            // ペンを破棄
+            pen.Dispose();
+        }
+
+    }
+
+    class Node
+    {
+        private int index;
+
+        private int posx;
+        private int posy;
+
+        public Node(int n)
+        {
+            index = n;
+        }
+
+        public void showIndex()
+        {
+            Console.WriteLine(index);
+        }
+
+        public void setPosition(int x, int y)
+        {
+            posx = x;
+            posy = y;
+        }
+
+        public int getx()
+        {
+            return posx;
+        }
+
+        public int gety()
+        {
+            return posy;
+        }
+    }
+
+    class Edge {
+
+        private Node start;
+        private Node end;
+    
+    }
+
+
+
+
+}
