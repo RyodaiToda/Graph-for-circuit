@@ -73,7 +73,21 @@ namespace Graph
             g.addNode();
             g.addNode();
 
-            g.setPosition();
+            //g.setPosition();   //円周上に自動配置
+
+            //ホイートストンブリッジの一般的な形に配置（電源は下側）
+            //          n2              n2：ブリッジ上端
+            //        /  |  \           n3：左端，n1：右端
+            //     n3    |    n1        n0：ブリッジ下端
+            //     |  \  |  /  |        n5-n4：直流電圧源
+            //     |    n0     |
+            //     n5 --電源-- n4
+            g.setPosition(0, 260, 360);
+            g.setPosition(1, 440, 220);
+            g.setPosition(2, 260, 80);
+            g.setPosition(3, 80, 220);
+            g.setPosition(4, 440, 480);
+            g.setPosition(5, 80, 480);
 
             g.addEdge(0, 1, 2, 6.0);
             g.addEdge(2, 1, 2, 3.0);
